@@ -5,12 +5,14 @@ from janome.tokenizer import Tokenizer
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 
+#テキスト表示
 st.title("Youtubeチャンネル分析")
 st.write("データをアップロードして気になるチャンネルを分析してみましょう")
 
+#データをアップロード
 uploaded_file = st.file_uploader("Choose a file")
 if uploaded_file is not None:
-    #CSVをデータフレームにする
+    #アップロードしたCSVをデータフレームにする
     video_data = pd.read_csv(uploaded_file,encoding="Shift-JIS")
     video_data['Post_Date'] = pd.to_datetime(video_data['Post_Date']).dt.date
     video_data['month'] = pd.to_datetime(video_data['Post_Date']).dt.to_period('M').dt.start_time
@@ -19,10 +21,11 @@ if uploaded_file is not None:
     st.sidebar.write('フィルター設定')
     date_start = st.sidebar.date_input('開始日',value=video_data['Post_Date'].min(), min_value=video_data['Post_Date'].min())
     date_end = st.sidebar.date_input('終了日')
-    view_min = st.sidebar.number_input('再生数下限',step=1000)
+    view_min = st.sidebar.number_input('再生数下限',step=10000)
+    like_min = 0
 
     #設定に合わせてデータをフィルター
-    data = video_data.query('@date_end >= Post_Date >= @date_start & Views > @view_min')
+    data = video_data.query('@date_end >= Post_Date >= @date_start & Views > @view_min & Likes > @like_min')
 
     #基本データの表示
     st.subheader('動画の再生数')
@@ -36,7 +39,7 @@ if uploaded_file is not None:
     chart_data = data[['Post_Date', 'month', 'Video_Title','Views','Likes','Comments']]
     st.bar_chart(chart_data, x="month", y=['Views','Likes'])
 
-    #ワードクラウド作成の準備
+    #テキスト分析（ワードクラウド作成の準備）
     title_text = ''.join(data['Video_Title'])
 
     docs=[]
