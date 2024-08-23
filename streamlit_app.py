@@ -1,12 +1,12 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-from janome.tokenizer import Tokenizer
-from wordcloud import WordCloud
-import matplotlib.pyplot as plt
+# from janome.tokenizer import Tokenizer
+# from wordcloud import WordCloud
+# import matplotlib.pyplot as plt
 
 #テキスト表示
-st.title("Youtubeチャンネル分析")
+st.title("Youtubeチャンネル分析だよ")
 st.write("データをアップロードして気になるチャンネルを分析してみましょう")
 
 #データをアップロード
