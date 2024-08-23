@@ -39,27 +39,27 @@ if uploaded_file is not None:
     chart_data = data[['Post_Date', 'month', 'Video_Title','Views','Likes','Comments']]
     st.bar_chart(chart_data, x="month", y=['Views','Likes'])
 
-    #テキスト分析（ワードクラウド作成の準備）
-    title_text = ''.join(data['Video_Title'])
+    # #テキスト分析（ワードクラウド作成の準備）
+    # title_text = ''.join(data['Video_Title'])
 
-    docs=[]
-    t = Tokenizer()
-    tokens = t.tokenize(title_text)
-    for token in tokens:
-        if len(token.base_form) > 2:
-            docs.append(token.surface)
+    # docs=[]
+    # t = Tokenizer()
+    # tokens = t.tokenize(title_text)
+    # for token in tokens:
+    #     if len(token.base_form) > 2:
+    #         docs.append(token.surface)
     
-    #ワードクラウドの表示
-    c_word = ' '.join(docs)
-    wordcloud = WordCloud(background_color='white',
-                        font_path='Corporate-Logo-Rounded-Bold-ver3.otf',
-                        width=800, height=400).generate(c_word)
+    # #ワードクラウドの表示
+    # c_word = ' '.join(docs)
+    # wordcloud = WordCloud(background_color='white',
+    #                     font_path='Corporate-Logo-Rounded-Bold-ver3.otf',
+    #                     width=800, height=400).generate(c_word)
 
-    fig = plt.figure(figsize=(10, 5))
-    plt.imshow(wordcloud)
-    plt.axis('off')
+    # fig = plt.figure(figsize=(10, 5))
+    # plt.imshow(wordcloud)
+    # plt.axis('off')
 
-    st.pyplot(fig)
+    # st.pyplot(fig)
 
     #一覧の表示
     st.subheader('動画別のデータ')
